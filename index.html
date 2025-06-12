@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Esquivar Rocas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="game.js" defer></script>
+</head>
+<body>
+    <div id="mainMenu" class="screen">
+        <h1>Juego de Esquivar Rocas</h1>
+        <button id="startButton">Jugar</button>
+    </div>
+
+    <div id="gameScreen" class="screen hidden">
+        <div id="info">
+            <span>Puntaje: <span id="score">0</span></span>
+            <span>Vidas: <span id="lives">5</span></span>
+            <span>Nivel: <span id="level">1</span></span>
+        </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <div id="gameOverScreen" class="screen hidden">
+        <h1>¡Game Over!</h1>
+        <p>Puntaje final: <span id="finalScore">0</span></p>
+        <button id="retryButton">Reintentar</button>
+    </div>
+
+    <div id="congratsScreen" class="screen hidden">
+        <h1>¡Felicidades!</h1>
+        <p>Has completado todos los niveles.</p>
+        <p>Desarrollo T2 por parte del grupo formado por:</p>
+        <ul>
+            <li>Segundo Sebastian Valle (100% participación)</li>
+            <li>Carlos Jesus Rojas (100% participación)</li>
+            <li>Leo Carlos Correa (100% participación)</li>
+            <li>Luis Miguel Guevara (100% participación)</li>
+        </ul>
+        <button id="restartButton">Reiniciar Juego</button>
+    </div>
+
+    <div id="levelUpScreen" class="screen hidden">
+        <h1>¡Nivel Completado!</h1>
+        <p>Has avanzado al nivel <span id="nextLevel">2</span>.</p>
+        <button id="continueButton">Continuar</button>
+    </div>
+
+    <!-- 🎵 Audio de fondo -->
+    <audio id="bg-music" loop>
+        <source src="TheFatRat – Unity.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio HTML5.
+    </audio>
+
+    <script>
+        // 🔊 Inicia música tras primer clic (por política de navegador)
+        
+        function iniciarMusica() {
+            bgMusic.play().catch(error => {
+                console.warn("Error al reproducir música:", error);
+            });
+            window.removeEventListener('click', iniciarMusica);
+        }
+        window.addEventListener('click', iniciarMusica);
+    </script>
+    <!-- 🎛️ Menú de Opciones -->
+<div id="optionsMenu" class="screen hidden">
+    <h2>Opciones</h2>
+    <button id="resumeButton">Reanudar Juego</button>
+    <button id="toggleMusicButton">Pausar Música</button>
+    <button id="mainMenuButton">Volver al Menú Principal</button>
+</div>
+
+<!-- Botón de acceso rápido al menú de opciones (debe ir antes del script) -->
+<button id="optionsToggle" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">☰</button>
+
+<script>
+    let musicaActiva = true;
+
+    const optionsMenu = document.getElementById('optionsMenu');
+    const optionsToggle = document.getElementById('optionsToggle');
+    const resumeButton = document.getElementById('resumeButton');
+    const toggleMusicButton = document.getElementById('toggleMusicButton');
+    const mainMenuButton = document.getElementById('mainMenuButton');
+    const bgMusic = document.getElementById('bg-music');
+
+    let juegoPausado = false;
+
+    optionsToggle.addEventListener('click', () => {
+        optionsMenu.classList.toggle('hidden');
+        if (!juegoPausado) {
+            pausarJuego();
+        }
+    });
+
+    resumeButton.addEventListener('click', () => {
+        optionsMenu.classList.add('hidden');
+        reanudarJuego();
+    });
+
+    toggleMusicButton.addEventListener('click', () => {
+        if (musicaActiva) {
+            bgMusic.pause();
+            toggleMusicButton.textContent = 'Reanudar Música';
+        } else {
+            bgMusic.play();
+            toggleMusicButton.textContent = 'Pausar Música';
+        }
+        musicaActiva = !musicaActiva;
+    });
+
+    mainMenuButton.addEventListener('click', () => {
+        optionsMenu.classList.add('hidden');
+        document.getElementById('gameScreen').classList.add('hidden');
+        document.getElementById('mainMenu').classList.remove('hidden');
+        reanudarJuego(); 
+    });
+
+    function pausarJuego() {
+        if (window.cancelAnimationFrame && window.currentAnimation) {
+            cancelAnimationFrame(window.currentAnimation);
+        }
+        juegoPausado = true;
+    }
+
+    function reanudarJuego() {
+        if (typeof startGameLoop === 'function') {
+            startGameLoop();
+        }
+        juegoPausado = false;
+    }
+</script>
+</body>
+</html>

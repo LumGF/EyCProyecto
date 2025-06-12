@@ -1,0 +1,123 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Pantallas (menú, juego, game over, felicitaciones, cambio de nivel) */
+.screen {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Canvas */
+canvas {
+    display: block;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    width: 800px;
+    height: 600px;
+    border-radius: 10px;
+}
+
+/* Contenedor de información (puntaje, vidas, nivel) */
+#info {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    font-size: 18px;
+}
+
+#info span {
+    margin-right: 25px;
+}
+
+/* Estilos para el texto del puntaje, vidas y nivel */
+#score, #lives, #level {
+    font-weight: bold;
+    color: #ffeb3b;
+}
+
+/* Botones */
+button {
+    background: linear-gradient(135deg, #ffdd57, #ffca28);
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s, background 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ffca28, #ffa000);
+    transform: scale(1.05);
+}
+
+/* Títulos */
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+p {
+    font-size: 24px;
+}
+
+/* Lista de participantes */
+ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 18px;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+/* Ventana de cambio de nivel */
+#levelUpScreen {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+.screen.hidden {
+    display: none;
+}
+
+#optionsMenu {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 999;
+    text-align: center;
+}

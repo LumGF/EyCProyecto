@@ -5,7 +5,7 @@ export class Bullet {
         this.width = 5;
         this.height = 5;
         this.image = new Image();
-        this.image.src = 'bullet.png';
+        this.image.src = 'img/bullet.png';
     }
 
     update() {
